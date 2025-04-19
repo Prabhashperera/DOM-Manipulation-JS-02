@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Knight Rider Light</title>
+    <style>
+        body {
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: sans-serif;
+        }
+
+        .box {
+            display: flex;
+            gap: 5px;
+        }
+
+        .light {
+            width: 100px;
+            height: 50px;
+            background-color: #111;
+            transition: background-color 0.2s;
+        }
+
+        .active  { background-color: #330000; }
+        .trail1  { background-color: #660000; }
+        .trail2  { background-color: #990000; }
+        .trail3  { background-color: #cc0000; }
+        .trail4  { background-color: #ff0000; }
+        .trail5  { background-color: #ff4d4d; }
+        .trail6  { background-color: #ff9999; }
+    </style>
+</head>
+<body>
+
+<div class="box" id="lightBox">
+    <div class="light"></div>
+    <div class="light"></div>
+    <div class="light"></div>
+    <div class="light"></div>
+    <div class="light"></div>
+    <div class="light"></div>
+    <div class="light"></div>
+
+</div>
+
+<script>
+    let lights = document.querySelectorAll('.light');
+    let current = 0;
+    let direction = 1;
+
+    function updateLights() {
+        // Clear all lights
+        lights.forEach(light => light.className = 'light');
+
+        // Add main active light
+        if (lights[current]) lights[current].classList.add('active');
+
+        // Add trails before
+        if (lights[current - 1]) lights[current - 1].classList.add('trail1');
+        if (lights[current - 2]) lights[current - 2].classList.add('trail2');
+        if (lights[current - 3]) lights[current - 3].classList.add('trail3');
+
+        // Add trails after
+        if (lights[current + 1]) lights[current + 1].classList.add('trail4');
+        if (lights[current + 2]) lights[current + 2].classList.add('trail5');
+        if (lights[current + 3]) lights[current + 3].classList.add('trail6');
+
+        current += direction;
+
+        if (current === 0 || current === lights.length - 1) {
+            direction *= -1;
+        }
+    }
+
+    setInterval(updateLights, 100);
+</script>
+
+</body>
+</html>
